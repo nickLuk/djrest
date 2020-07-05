@@ -1,39 +1,55 @@
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 
+
+// Components
+import UsersList from "../components/usersList/usersList";
+
 class App extends React.Component {
+  apiURL = "http://localhost:8000/api/users/";
+
+  state = {
+    UsersList: [],
+  };
+
+  componentDidMount() {
+    this.updateService();
+  }
+
+  updateService() {
+    fetch(this.apiURL)
+      .then((request) => {
+        return request.json();
+      })
+      .then((data) => {
+        this.setState({
+          UsersList: data,
+        });
+      })
+      .catch((err) => console.log(err.message));
+  }
+
+  onDeleteItem = (id) => {
+    // console.log("onDeleteItem ", id);
+    // console.log(this.apiURL + id);
+    fetch(this.apiURL + id, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        this.updateService();
+        console.log(response);
+      })
+      .catch((err) => console.log(err.message));
+  };
+
   render() {
+    // console.log("State => ", this.state.UsersList);
     return (
       <Fragment>
-        <div className="outer-container">
-          <h1>User Manager Table</h1>
-          <table>
-            <thead>
-              <tr>
-                <th>id</th>
-                <th>name</th>
-                <th>email</th>
-                <th>message</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="priority-200">
-                <td className="name">TESmart KVM Switch HDMI Device</td>
-                <td className="clicks">857</td>
-                <td className="priority">
-                  <i className="fas fa-circle"></i> 200
-                </td>
-                <td className="impressions">190</td>
-                <td className="delete">
-                  <button className="delete-btn">
-                    <i className="fas fa-trash-alt" title="delete row"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <UsersList
+          UsersList={this.state.UsersList}
+          onDeleteItem={this.onDeleteItem}
+        />
       </Fragment>
     );
   }
