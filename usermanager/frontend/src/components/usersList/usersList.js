@@ -12,7 +12,7 @@ const UsersList = ({ UsersList, onDeleteItem }) => {
         id={item.id}
         name={item.name}
         email={item.email}
-        message={item.message}
+        massage={item.massage}
         created_at={item.created_at}
         onDeleteItem={() => onDeleteItem(item.id)}
       />

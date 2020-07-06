@@ -5,11 +5,11 @@ class UserItem extends React.Component {
     id: this.props.id,
     name: this.props.name,
     email: this.props.email,
-    message: this.props.message,
+    massage: this.props.massage,
     created_at: this.props.created_at,
   };
   render() {
-    const { id, name, email, message, created_at } = this.state;
+    const { id, name, email, massage, created_at } = this.state;
     // console.log("singleUserState => ", this.state);
     //console.log(this.props);
     return (
@@ -18,7 +18,7 @@ class UserItem extends React.Component {
           <td className="name">{id}</td>
           <td className="clicks">{name}</td>
           <td className="priority">{email}</td>
-          <td className="impressions">{message}</td>
+          <td className="impressions">{massage}</td>
           <td className="delete">
             <button className="delete-btn" onClick={this.props.onDeleteItem}>
               <i className="fas fa-trash-alt" title="delete row"></i>
